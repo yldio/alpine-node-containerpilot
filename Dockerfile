@@ -28,6 +28,7 @@ ONBUILD COPY . /home/nodejs/app/
 ONBUILD RUN chown -R nodejs:nodejs /home/nodejs/
 ONBUILD USER nodejs
 ONBUILD WORKDIR /home/nodejs/app/
-ONBUILD RUN yarn || npm install --quiet --no-spin
+# ONBUILD RUN yarn || npm install --quiet --no-spin
+ONBUILD RUN make install
 
 ONBUILD CMD [ "/bin/containerpilot", "make", "start" ]
