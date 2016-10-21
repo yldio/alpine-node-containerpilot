@@ -20,8 +20,8 @@ RUN export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
 
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
-ONBUILD COPY package.json yarn.lock /home/nodejs/.
-ONBUILD COPY . /home/nodejs/.
+ONBUILD COPY package.json yarn.lock /home/nodejs/
+ONBUILD COPY . /home/nodejs/
 # Because copy / add, adds files as root.
 ONBUILD RUN chown -R nodejs:nodejs /home/nodejs/
 ONBUILD USER nodejs
