@@ -1,7 +1,9 @@
 FROM mhart/alpine-node:6.9.1
 
 RUN set -x \
+    && apk update \
     && apk add --update curl bash git make \
+    && apk upgrade \
     && rm -rf /var/cache/apk/* \
     && npm install --quiet --no-spin --global yarn \
     && adduser -u 431 -D -h /home/nodejs -s '/sbin/nologin -c "Docker image user"' nodejs \
