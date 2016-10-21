@@ -5,7 +5,7 @@ RUN set -x \
     && rm -rf /var/cache/apk/* \
     && npm install --quiet --no-spin --global yarn \
     && adduser -u 431 -D -h /home/nodejs -s '/sbin/nologin -c "Docker image user"' nodejs \
-    && mkdir -p /home/nodejs/
+    && mkdir -p /home/nodejs/app/
 
 # Get and configure containerpilot
 ENV CONTAINERPILOT_VERSION 2.4.3
@@ -20,12 +20,12 @@ RUN export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
 
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
-ONBUILD COPY package.json yarn.lock /home/nodejs/
-ONBUILD COPY . /home/nodejs/
+ONBUILD COPY package.json yarn.lock /home/nodejs/app/
+ONBUILD COPY . /home/nodejs/app/
 # Because copy / add, adds files as root.
 ONBUILD RUN chown -R nodejs:nodejs /home/nodejs/
 ONBUILD USER nodejs
-ONBUILD WORKDIR /home/nodejs/
+ONBUILD WORKDIR /home/nodejs/app/
 ONBUILD RUN yarn
 
 ONBUILD CMD [ "/bin/containerpilot", "make", "start" ]
