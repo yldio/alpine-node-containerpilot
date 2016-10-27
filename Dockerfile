@@ -1,5 +1,9 @@
 FROM mhart/alpine-node:6.9.1
 
+# Get and configure containerpilot
+ENV CONTAINERPILOT_VERSION 2.4.3
+ENV CONTAINERPILOT file:///etc/containerpilot.json
+
 RUN set -x \
     && apk update \
     && apk add --update curl bash git make \
@@ -7,13 +11,8 @@ RUN set -x \
     && rm -rf /var/cache/apk/* \
     && npm install --quiet --no-spin --global yarn \
     && adduser -u 431 -D -h /home/nodejs -s '/sbin/nologin -c "Docker image user"' nodejs \
-    && mkdir -p /home/nodejs/app/
-
-# Get and configure containerpilot
-ENV CONTAINERPILOT_VERSION 2.4.3
-ENV CONTAINERPILOT file:///etc/containerpilot.json
-
-RUN export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
+    && mkdir -p /home/nodejs/app/ \
+    && export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
     && curl -Lo /tmp/containerpilot.tar.gz \
          "https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VERSION}/containerpilot-${CONTAINERPILOT_VERSION}.tar.gz" \
     && echo "${CP_SHA1}  /tmp/containerpilot.tar.gz" | sha1sum -c \
@@ -22,7 +21,6 @@ RUN export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
 
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
-ONBUILD COPY package.json yarn.lock /home/nodejs/app/
 ONBUILD COPY . /home/nodejs/app/
 # Because copy / add, adds files as root.
 ONBUILD RUN chown -R nodejs:nodejs /home/nodejs/
