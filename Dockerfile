@@ -9,7 +9,7 @@ RUN set -x \
     && apk add --update curl bash git make \
     && apk upgrade \
     && rm -rf /var/cache/apk/* \
-    && npm install --quiet --no-spin --global yarn \
+    && npm install --quiet --no-spin --global yarn@0.16.1 \
     && adduser -u 431 -D -h /home/nodejs -s '/sbin/nologin -c "Docker image user"' nodejs \
     && mkdir -p /home/nodejs/app/ \
     && export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
