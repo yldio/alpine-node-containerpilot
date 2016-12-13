@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:6.9.1
+FROM node:6.9.2-alpine
 
 # Get and configure containerpilot
 ENV CONTAINERPILOT_VERSION 2.4.3
