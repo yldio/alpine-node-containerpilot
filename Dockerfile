@@ -19,6 +19,8 @@ RUN set -x \
     && tar zxf /tmp/containerpilot.tar.gz -C /bin \
     && rm /tmp/containerpilot.tar.gz
 
+ENV BUILD=production
+
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
 ONBUILD COPY . /home/nodejs/app/
