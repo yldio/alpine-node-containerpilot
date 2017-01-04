@@ -1,7 +1,7 @@
 FROM node:6.9.2-alpine
 
 # Get and configure containerpilot
-ENV CONTAINERPILOT_VERSION 2.4.3
+ENV CONTAINERPILOT_VERSION 2.6.0
 ENV CONTAINERPILOT file:///etc/containerpilot.json
 
 RUN set -x \
@@ -9,10 +9,9 @@ RUN set -x \
     && apk add --update curl bash git make \
     && apk upgrade \
     && rm -rf /var/cache/apk/* \
-    && npm install --quiet --no-spin --global yarn@0.16.1 \
-    && adduser -u 431 -D -h /home/nodejs -s '/sbin/nologin -c "Docker image user"' nodejs \
-    && mkdir -p /home/nodejs/app/ \
-    && export CP_SHA1=2c469a0e79a7ac801f1c032c2515dd0278134790 \
+    && npm install --quiet --no-spin --global yarn@0.18.1 \
+    && mkdir -p /home/node/app/ \
+    && export CP_SHA1=c1bcd137fadd26ca2998eec192d04c08f62beb1f \
     && curl -Lo /tmp/containerpilot.tar.gz \
          "https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VERSION}/containerpilot-${CONTAINERPILOT_VERSION}.tar.gz" \
     && echo "${CP_SHA1}  /tmp/containerpilot.tar.gz" | sha1sum -c \
@@ -23,11 +22,11 @@ ENV BUILD=production
 
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
-ONBUILD COPY . /home/nodejs/app/
+ONBUILD COPY . /home/node/app/
 # Because copy / add, adds files as root.
-ONBUILD RUN chown -R nodejs:nodejs /home/nodejs/
-ONBUILD USER nodejs
-ONBUILD WORKDIR /home/nodejs/app/
+ONBUILD RUN chown -R node:node /home/node/
+ONBUILD USER node
+ONBUILD WORKDIR /home/node/app/
 ONBUILD RUN make install-production
 
 ONBUILD CMD [ "/bin/containerpilot", "make", "start" ]
