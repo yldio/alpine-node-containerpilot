@@ -1,4 +1,4 @@
-FROM node:6.9.2-alpine
+FROM node:6.9.3-alpine
 
 # Get and configure containerpilot
 ENV CONTAINERPILOT_VERSION 2.6.0
