@@ -19,6 +19,7 @@ RUN set -x \
     && rm /tmp/containerpilot.tar.gz
 
 ENV BUILD=production
+ENV NODE_ENV=production
 
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
