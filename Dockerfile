@@ -1,4 +1,4 @@
-FROM node:6.9.3-alpine
+FROM node:6.9.4-alpine
 
 # Get and configure containerpilot
 ENV CONTAINERPILOT_VERSION 2.6.0
@@ -9,7 +9,7 @@ RUN set -x \
     && apk add --update curl bash git make \
     && apk upgrade \
     && rm -rf /var/cache/apk/* \
-    && npm install --quiet --no-spin --global yarn@0.18.1 \
+    && npm install --quiet --no-spin --global yarn@0.19.1 \
     && mkdir -p /home/node/app/ \
     && export CP_SHA1=c1bcd137fadd26ca2998eec192d04c08f62beb1f \
     && curl -Lo /tmp/containerpilot.tar.gz \
