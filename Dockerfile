@@ -21,6 +21,8 @@ RUN set -x \
 ENV BUILD=production
 ENV NODE_ENV=production
 
+COPY ./sensors.sh /bin/sensors
+
 ONBUILD COPY ./etc/containerpilot.json /etc/
 
 ONBUILD COPY . /home/node/app/
