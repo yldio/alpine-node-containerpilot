@@ -22,7 +22,7 @@ cpu() {
     # oneliner to display cpu load
     # top -bn1 | grep load | awk '{printf "CPU Load: %.2f\n", $(NF-2)}'
     (>&2 echo "cpu check fired")
-    local cpuload=$(top -bn1 | grep load | awk '{printf "%.2f", $(NF-2)}')
+    local cpuload=$(uptime | awk '{printf "%.2f", $6}')
     echo ${cpuload}
 }
 
