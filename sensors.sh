@@ -34,7 +34,7 @@ diskusage() {
 
 diskcapacity() {
   (>&2 echo "disk capacity check fired")
-  local capacity=$(df -P | grep '/$' | awk 'NR=2{print $4}' | sed 's/[^0-9\.]*//g')
+  local capacity=$(df -P | grep '/$' | awk 'NR=2{print $2}' | sed 's/[^0-9\.]*//g')
   echo ${capacity}
 }
 
