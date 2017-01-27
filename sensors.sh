@@ -27,15 +27,15 @@ cpu() {
 }
 
 diskusage() {
-  (>&2 echo "disk usage check fired")
-  local usage=$(df -P | grep '/$' | awk 'NR=2{print $3}' | sed 's/[^0-9\.]*//g')
-  echo ${usage}
+    (>&2 echo "disk usage check fired")
+    local usage=$(df -P | grep '/$' | awk 'NR=2{print $3}' | sed 's/[^0-9\.]*//g')
+    echo ${usage}
 }
 
 diskcapacity() {
-  (>&2 echo "disk capacity check fired")
-  local capacity=$(df -P | grep '/$' | awk 'NR=2{print $2}' | sed 's/[^0-9\.]*//g')
-  echo ${capacity}
+    (>&2 echo "disk capacity check fired")
+    local capacity=$(df -P | grep '/$' | awk 'NR=2{print $2}' | sed 's/[^0-9\.]*//g')
+    echo ${capacity}
 }
 
 cmd=$1
