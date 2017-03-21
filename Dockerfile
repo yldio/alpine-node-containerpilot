@@ -1,7 +1,7 @@
-FROM node:6.9.4-alpine
+FROM node:7.7.3-alpine
 
 # Get and configure containerpilot
-ENV CONTAINERPILOT_VERSION 2.6.0
+ENV CONTAINERPILOT_VERSION 2.7.0
 ENV CONTAINERPILOT file:///etc/containerpilot.json
 
 RUN set -x \
@@ -9,9 +9,9 @@ RUN set -x \
     && apk add --update curl bash git make \
     && apk upgrade \
     && rm -rf /var/cache/apk/* \
-    && npm install --quiet --no-spin --global yarn@0.19.1 \
+    && yarn --version \ # assert that yarn is installed
     && mkdir -p /home/node/app/ \
-    && export CP_SHA1=c1bcd137fadd26ca2998eec192d04c08f62beb1f \
+    && export CP_SHA1=687f7d83e031be7f497ffa94b234251270aee75b \
     && curl -Lo /tmp/containerpilot.tar.gz \
          "https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VERSION}/containerpilot-${CONTAINERPILOT_VERSION}.tar.gz" \
     && echo "${CP_SHA1}  /tmp/containerpilot.tar.gz" | sha1sum -c \
