@@ -22,8 +22,6 @@ ENV NODE_ENV=production
 
 COPY ./sensors.sh /bin/sensors
 
-ONBUILD COPY ./etc/containerpilot.json /etc/
-
 ONBUILD COPY . /home/node/app/
 
 # Because copy / add, adds files as root.
