@@ -20,13 +20,8 @@ RUN set -x \
 ENV BUILD=production
 ENV NODE_ENV=production
 
-COPY ./sensors.sh /bin/sensors
+RUN mkdir -p /opt/app/
+ONBUILD COPY . /opt/app/
+ONBUILD WORKDIR /opt/app/
 
-ONBUILD COPY . /home/node/app/
-
-# Because copy / add, adds files as root.
-ONBUILD RUN chown -R node:node /home/node/
-ONBUILD USER node
-ONBUILD WORKDIR /home/node/app/
-
-ONBUILD CMD ["/bin/containerpilot", "make", "start"]
+ONBUILD CMD ["/bin/containerpilot"]
