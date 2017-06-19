@@ -1,8 +1,9 @@
 FROM node:7.10.0-alpine
 
 # Get and configure containerpilot
-ENV CONTAINERPILOT_VERSION 2.7.3
-ENV CONTAINERPILOT file:///etc/containerpilot.json
+ENV CP_SHA1 6da4a4ab3dd92d8fd009cdb81a4d4002a90c8b7c
+ENV CONTAINERPILOT_VERSION 3.0.0
+ENV CONTAINERPILOT /etc/containerpilot.json
 
 RUN set -x \
     && apk update \
@@ -11,7 +12,6 @@ RUN set -x \
     && rm -rf /var/cache/apk/* \
     && yarn --version \
     && mkdir -p /home/node/app/ \
-    && export CP_SHA1=2511fdfed9c6826481a9048e8d34158e1d7728bf \
     && curl -Lo /tmp/containerpilot.tar.gz "https://github.com/joyent/containerpilot/releases/download/${CONTAINERPILOT_VERSION}/containerpilot-${CONTAINERPILOT_VERSION}.tar.gz" \
     && echo "${CP_SHA1}  /tmp/containerpilot.tar.gz" | sha1sum -c \
     && tar zxf /tmp/containerpilot.tar.gz -C /bin \
