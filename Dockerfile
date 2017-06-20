@@ -31,6 +31,8 @@ RUN curl -Lo /tmp/containerpilot.tar.gz "https://github.com/joyent/containerpilo
 ENV BUILD=production
 ENV NODE_ENV=production
 
+COPY ./sensors.sh /bin/sensors
+
 RUN mkdir -p /opt/app/
 ONBUILD COPY . /opt/app/
 ONBUILD WORKDIR /opt/app/
